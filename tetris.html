@@ -1,0 +1,141 @@
+<html>
+<head>
+<style type="text/css">
+body{
+margin:10px;
+font-family:sans-serif;
+}
+
+.bloc
+{
+height:20px;
+width:18px;
+background-color:#000000;
+position:absolute;
+top:0;
+left:80;
+border:1px solid blue;
+
+
+}
+</style>
+
+<script type="text/javascript" src="jquery-1.6.1.min.js">
+</script>
+
+
+<script type="text/javascript">
+var m=5;
+var j=1;
+
+window.onload=xcs;
+function xcs()
+{ $("#con").html("");
+  $("#con").append("<div id='bloc1' class='bloc'></div>");
+  $("#stat").html("");
+  $("#info").text("use arrow keys to control block's movement");
+  
+ document.onkeydown=xy;
+ var i=0;
+ var score=0;
+
+ var k=new Array(); 
+ for(o=0;o<9;o++)
+  {
+     k[o]=0;
+     
+
+     
+  }
+ 
+function gh(x)
+{  
+     m=5;   
+     i=0;
+ var ty=setInterval(function(){$("#bloc"+x).css({"top":"+=5",});
+                         i=i+5;
+                         fd(i);
+                        },50);
+function fd(i)
+{
+  if(i>189-k[m])
+    { clearInterval(ty);
+      k[m]=k[m]+20;
+      
+      j++;
+  if(k[m]<200)
+    {  $("#con").append("<div id=bloc"+j+" class='bloc'></div>");
+       score=score+1;
+      gh(j);}
+  else
+    {$("#info").html("GAME OVER<br>your score:"+score);
+    $("#stat").append("<input type='button' value='play again' onclick='xcs();' >");
+    }
+   } 
+ }
+}
+ gh(1);
+ 
+
+
+
+
+}
+function right(x)
+{  var xd=$("#bloc"+x).position();
+  if(xd.left<180){
+ 
+  $("#bloc"+x).css({"left":"+=20"});
+   m=m-1;
+   }
+   
+}
+function left(x)
+{  var xd=$("#bloc"+x).position();
+  if(xd.left>20){
+ 
+   $("#bloc"+x).css({"left":"-=20"});
+   m=m+1;
+   
+    }
+
+}
+
+function xy(e){
+
+if(e.keyCode == 37){
+left(j);
+
+} 
+
+if(e.keyCode == 39){
+right(j);
+
+} 
+
+}
+
+
+
+
+</script>
+
+
+
+
+<title>tetris</title>
+</head>
+<body>
+
+<div id="con" style="border:1px solid black; height:200px;width:200px; ">
+
+
+
+</div>
+<div id="stat"></div><br>
+<div id="info" style="border:1px solid black;height:50px;width:320px;text-align:center;padding:10px;">
+use arrow keys to control block's movement</div>
+
+
+</body>
+</html>
