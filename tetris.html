@@ -25,6 +25,7 @@ border:1px solid blue;
 
 
 <script type="text/javascript">
+var iu=0;
 var m=5;
 var j=1;
 var q=new Array();
@@ -77,20 +78,16 @@ function fd(i)
       
       j++;
   if(k[m]<200)
-    {  $("#con").append("<div id=bloc"+j+" class='bloc'></div>");
+    {  lk();
+       $("#con").append("<div id=bloc"+j+" class='bloc'></div>");
        score=score+1;
+       
       gh(j);}
   else
-    {   var io="";
-         for(y=0;y<9;y++)
-  {  
-     for(s=0;s<9;s++)
-       { io=io+q[y][s];
-       }
-         io=io+"<br>";
-  }
-     $("#info").html("GAME OVER<br>your score:"+score+"<br>"+io);
-    $("#stat").append("<input type='button' value='play again' onclick='xcs();' >");
+    {  
+     score=score+(iu*9);
+     $("#info").html("GAME OVER<br>your score:"+score);
+    $("#stat").append("<form action='tetris.html'><input type='submit' value='play again'></form>");
     }
    } 
  }
@@ -106,12 +103,13 @@ function right(x)
 {  var xd=$("#bloc"+x).position();
    var xc=xd.top;
    var xc2=200-xc;
-   for(l=0;l<9;l++)
+   var vf=9+iu;
+   for(l=0;l<vf;l++)
 {
     if(q[m-1][l]==0)
         break;
   }
-  var x3=(l+1)*20;
+  var x3=(l+1-iu)*20;
   if(xc2 >x3)
 {
   if(xd.left<180){
@@ -126,12 +124,13 @@ function left(x)
 {  var xd=$("#bloc"+x).position();
      var xc=xd.top;
    var xc2=200-xc;
-   for(l=0;l<9;l++)
+   var vf=9+iu;
+   for(l=0;l<vf;l++)
 {
     if(q[m+1][l]==0)
         break;
   }
-  var x3=(l+1)*20;
+  var x3=(l+1-iu)*20;
   if(xc2 >x3)
 {
   
@@ -160,25 +159,29 @@ right(j);
 }
 
 function lk()
-{
-   for(p=0;p<10;p++)
-     {
-         $("#bloc"+p).css({"display":"none",});
-        
-       }
-      for(p=10;p<20;p++)
-     {
-         $("#bloc"+p).css({"top":"+=20",});
-        
-       }
-     for(p=0;p<9;p++)
-    {
-
-    k[p]=k[p]-20;
-
-
-
+{ var op; var ty=0;var tr;var df;var we;
+  for(op=0;op<9;op++)
+{    if(q[op][iu]!=0)
+        ty=ty+1;
   }
+  if(ty==9)
+{   for(we=0;we<9;we++)
+      { tr=q[we][iu];
+         $("#bloc"+tr).css({"display":"none"});
+          k[we]=k[we]-20;
+               
+
+      
+      }
+   for(df=1;df<=j;df++)
+     {
+
+     $("#bloc"+df).css({"top":"+=20"});  
+
+    }
+   
+    iu=iu+1;   
+ } 
 
 
 }
