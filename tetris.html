@@ -27,7 +27,16 @@ border:1px solid blue;
 <script type="text/javascript">
 var m=5;
 var j=1;
-
+var q=new Array();
+var y;
+var s;
+for(y=0;y<9;y++)
+  {  q[y]=new Array();
+     for(s=0;s<9;s++)
+       { q[y][s]=0;
+       }
+  }
+var k=new Array(); 
 window.onload=xcs;
 function xcs()
 { $("#con").html("");
@@ -39,7 +48,7 @@ function xcs()
  var i=0;
  var score=0;
 
- var k=new Array(); 
+ var o;
  for(o=0;o<9;o++)
   {
      k[o]=0;
@@ -57,9 +66,13 @@ function gh(x)
                          fd(i);
                         },50);
 function fd(i)
-{
+{    var u;
   if(i>189-k[m])
     { clearInterval(ty);
+      for(u=0;u<9;u++)
+      { if(q[m][u]==0)
+          { q[m][u]=j;
+           break;}    }
       k[m]=k[m]+20;
       
       j++;
@@ -68,7 +81,15 @@ function fd(i)
        score=score+1;
       gh(j);}
   else
-    {$("#info").html("GAME OVER<br>your score:"+score);
+    {   var io="";
+         for(y=0;y<9;y++)
+  {  
+     for(s=0;s<9;s++)
+       { io=io+q[y][s];
+       }
+         io=io+"<br>";
+  }
+     $("#info").html("GAME OVER<br>your score:"+score+"<br>"+io);
     $("#stat").append("<input type='button' value='play again' onclick='xcs();' >");
     }
    } 
@@ -83,21 +104,44 @@ function fd(i)
 }
 function right(x)
 {  var xd=$("#bloc"+x).position();
+   var xc=xd.top;
+   var xc2=200-xc;
+   for(l=0;l<9;l++)
+{
+    if(q[m-1][l]==0)
+        break;
+  }
+  var x3=(l+1)*20;
+  if(xc2 >x3)
+{
   if(xd.left<180){
  
   $("#bloc"+x).css({"left":"+=20"});
    m=m-1;
    }
+}
    
 }
 function left(x)
 {  var xd=$("#bloc"+x).position();
+     var xc=xd.top;
+   var xc2=200-xc;
+   for(l=0;l<9;l++)
+{
+    if(q[m+1][l]==0)
+        break;
+  }
+  var x3=(l+1)*20;
+  if(xc2 >x3)
+{
+  
   if(xd.left>20){
  
    $("#bloc"+x).css({"left":"-=20"});
    m=m+1;
    
     }
+}
 
 }
 
@@ -115,7 +159,29 @@ right(j);
 
 }
 
+function lk()
+{
+   for(p=0;p<10;p++)
+     {
+         $("#bloc"+p).css({"display":"none",});
+        
+       }
+      for(p=10;p<20;p++)
+     {
+         $("#bloc"+p).css({"top":"+=20",});
+        
+       }
+     for(p=0;p<9;p++)
+    {
 
+    k[p]=k[p]-20;
+
+
+
+  }
+
+
+}
 
 
 </script>
@@ -133,7 +199,7 @@ right(j);
 
 </div>
 <div id="stat"></div><br>
-<div id="info" style="border:1px solid black;height:50px;width:320px;text-align:center;padding:10px;">
+<div id="info" style="border:1px solid black;height:50px;width:320px;text-align:center;padding:10px;" onclick='lk();'>
 use arrow keys to control block's movement</div>
 
 
